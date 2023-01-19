@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">
+            <h1>KD</h1>
+        </div>
+        <h2 class="title">Title Bar</h2>
+    </div>
+
+    <div class="container">
+       
+        <div class="box">
+            <button id="one" onclick="getLocation()">Get Location</button>
+            <div class="box-1">
+                <span>City : </span>
+                <p id="city"></p><br>
+                
+                <span>Temperature :</span>
+                <p id="tem"></p><br>
+            </div>
+            <div class="box-2">
+                <span>Climate : </span>
+                <p id="cl"></p><br>
+                
+                <span>humidity :</span>
+                <p id="hum"></p><br>
+            </div>
+        </div>
+    </div>
+    <script>
+        var a = document.getElementById("city");
+        var b = document.getElementById("tem");
+        var c = document.getElementById("cl");
+        var d = document.getElementById("hum");
+        function getLocation() {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+          }
+        }
+        
+        async function showPosition(position) {
+        const resp=await fetch('https://api.openweathermap.org/data/2.5/weather?lat='+position.coords.latitude+'&lon='+ position.coords.longitude+'&appid=365124a20bf79015ed73a9bb0f520a09');
+        var data=await resp.json();
+        a.innerHTML=data.name;
+        b.innerHTML=Math.floor(data["main"].temp-273)+"<sup>o</sup>";  
+        c.innerHTML=data["weather"][0].description; 
+        d.innerHTML=data["main"].humidity;
+        console.log(data);
+        }
+        
+    </script>
+
+    <div class="footer"></div>
+
+</body>
+</html>
