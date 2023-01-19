@@ -25,22 +25,22 @@
                 <p id="city"></p><br>
                 
                 <span>Temperature :</span>
-                <p id="tem"></p><br>
+                <p id="temperature"></p><br>
             </div>
             <div class="box-2">
                 <span>Climate : </span>
-                <p id="cl"></p><br>
+                <p id="climate"></p><br>
                 
                 <span>humidity :</span>
-                <p id="hum"></p><br>
+                <p id="humidity"></p><br>
             </div>
         </div>
     </div>
     <script>
         var a = document.getElementById("city");
-        var b = document.getElementById("tem");
-        var c = document.getElementById("cl");
-        var d = document.getElementById("hum");
+        var b = document.getElementById("temperature");
+        var c = document.getElementById("climate");
+        var d = document.getElementById("humidity");
         function getLocation() {
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
@@ -48,7 +48,8 @@
         }
         
         async function showPosition(position) {
-        const resp=await fetch('https://api.openweathermap.org/data/2.5/weather?lat='+position.coords.latitude+'&lon='+ position.coords.longitude+'&appid=365124a20bf79015ed73a9bb0f520a09');
+            var apikey="";
+        const resp=await fetch('https://api.openweathermap.org/data/2.5/weather?lat='+position.coords.latitude+'&lon='+ position.coords.longitude+'&appid='+apikey);
         var data=await resp.json();
         a.innerHTML=data.name;
         b.innerHTML=Math.floor(data["main"].temp-273)+"<sup>o</sup>";  
